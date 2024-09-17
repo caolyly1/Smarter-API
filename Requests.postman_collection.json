@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "d389ddb8-50df-4a3f-81e0-1e6dcb908b93",
+		"name": "1. API Auto Training",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2199404"
+	},
+	"item": [
+		{
+			"name": "Runner - Data driven Example",
+			"item": [
+				{
+					"name": "Register new user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const registerData = pm.iterationData.get(\"registerData\");",
+									"const inTestEmail = registerData.email;",
+									"const inTestPassword = registerData.password;",
+									"",
+									"//(OPTIONAL) Log the inTestEmail and inTestPassword in console to check if they are extracted correctly from our Data File",
+									"console.log(`inTestEmail: [${inTestEmail}] | inTestPassword: [${inTestPassword}]`)",
+									"",
+									"//Store them to use in Tests",
+									"pm.variables.set(\"email\", inTestEmail); ",
+									"pm.variables.set(\"password\", inTestPassword); ",
+									"",
+									"const verificationData = pm.iterationData.get(\"verificationData\");",
+									"const verificationMessage = verificationData.message;",
+									"const expectedResponseCode = verificationData.expectedResponseCode;",
+									"const expectResponseToContain = verificationData.expectResponseToContain;",
+									"",
+									"",
+									"//(OPTIONAL) Log the verifycationMessage, expectedResponseCode and expectResponseToContain in console to check if they are extracted correctly from our Data File",
+									"console.log(`verificationMessage: [${verificationMessage}] | expectedResponseCode: [${expectedResponseCode}] | expectResponseToContain: [${expectResponseToContain}]`)",
+									"",
+									"//Store them to use in Tests",
+									"pm.variables.set(\"verificationMessage\", verificationMessage)",
+									"pm.variables.set(\"expectedResponseCode\", expectedResponseCode)",
+									"pm.variables.set(\"expectResponseToContain\", expectResponseToContain)",
+									"",
+									"//Form request body AKA payload",
+									"const payload = JSON.stringify({",
+									"    email: inTestEmail,",
+									"    password: inTestPassword",
+									"})",
+									"",
+									"//(OPTIONAL) Log the formed payload in console to check if it's what we want to form",
+									"console.log(`Payload: ${payload}`);",
+									"",
+									"//Set the payload to \"body\" variable and use it in Body tab",
+									"pm.variables.set(\"body\", payload);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resBody = pm.response.json()",
+									"",
+									"pm.test(`${pm.variables.get(\"verificationMessage\")} email: [${pm.variables.get(\"email\")}] | password: [${pm.variables.get(\"password\")}]`, () => {",
+									"    pm.response.to.have.status(pm.variables.get(\"expectedResponseCode\"));",
+									"})",
+									"",
+									"pm.test(`Verify Response status code is [${pm.variables.get(\"expectedResponseCode\")}] and Response body contains [${pm.variables.get(\"expectResponseToContain\")}]`, () => {",
+									"    pm.expect(JSON.stringify(resBody)).to.contain(pm.variables.get(\"expectResponseToContain\"));",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{body}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://reqres.in/api/register",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
