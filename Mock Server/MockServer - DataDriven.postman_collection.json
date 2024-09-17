@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "5fe17dc9-7b32-49a7-98df-f1baee618d39",
-		"name": "MockServer - Homework - DataDriven",
+		"name": "MockServer - DataDriven",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "2199404"
 	},
@@ -62,9 +62,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/getusers/all",
+							"raw": "https://3c06b431-6035-43a9-baf1-513cb202f26d.mock.pstmn.io/getusers/all",
+							"protocol": "https",
 							"host": [
-								"{{url}}"
+								"3c06b431-6035-43a9-baf1-513cb202f26d",
+								"mock",
+								"pstmn",
+								"io"
 							],
 							"path": [
 								"getusers",
@@ -189,9 +193,11 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/register",
+							"raw": "https://reqres.in/api/register",
+							"protocol": "https",
 							"host": [
-								"{{url}}"
+								"reqres",
+								"in"
 							],
 							"path": [
 								"api",
@@ -199,6 +205,8 @@
 							]
 						}
 					},
+					"status": "OK",
+					"code": 200,
 					"_postman_previewlanguage": null,
 					"header": null,
 					"cookie": [],
@@ -219,9 +227,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/register",
+							"raw": "{{url-real}}/api/register",
 							"host": [
-								"{{url}}"
+								"{{url-real}}"
 							],
 							"path": [
 								"api",
@@ -229,6 +237,7 @@
 							]
 						}
 					},
+					"status": "Bad Request",
 					"code": 400,
 					"_postman_previewlanguage": "json",
 					"header": [
